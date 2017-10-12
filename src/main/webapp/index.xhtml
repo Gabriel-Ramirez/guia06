@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <h1 align="center">Tipo Post</h1>
+             
+            <h:form id="for">
+             <div>
+                    <p:selectBooleanCheckbox id="chkUsados" value="#{tpBean.activo}" itemLabel="Motrar Solamente los utilizados" >
+                        <p:ajax update="tabla" listener="#{tpBean.chkCambio()}"/>
+                    </p:selectBooleanCheckbox>
+             </div>
+                <div>
+                    <p:dataTable value="#{tpBean.lista}" var="item" id ="tabla" rows="10" paginator="true" >
+                    <p:column sortBy="#{item.idTipoPost}">
+                        <f:facet name="header">
+                            <h:outputText value="IdTipoPost"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipoPost}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Activo"/>
+                        </f:facet>
+                        <h:outputText value="#{item.activo}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Descripcion"/>
+                        </f:facet>
+                        <h:outputText value="#{item.descripcion}"/>
+                    </p:column>
+                </p:dataTable>
+                </div>
+            </h:form>
+        </f:view>
+        <br/>
+        <f:view>
+        <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <h:outputLabel><strong>Crear nuevo registro</strong></h:outputLabel>
+            <br/>
+            <br/>
+            <p:panelGrid id="grid_input" columns="3">
+                <p:outputLabel><strong>Id Post</strong></p:outputLabel>
+                <p:inputText id="idtxt" value="#{tpBean.tp.idTipoPost}" readonly="true"/><br/>
+                <p:outputLabel><strong>Nombre</strong></p:outputLabel>
+                <p:inputText id="nombre" value="#{tpBean.tp.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/> <br/>
+                <p:outputLabel><strong>Activo</strong></p:outputLabel>
+                <p:selectBooleanCheckbox id="activocbx" value="#{tpBean.tp.activo}"/><br/>
+                <p:outputLabel><strong>Descripcion</strong></p:outputLabel>
+                <p:inputTextarea title="descripcion" id="Descripcion" value="#{tpBean.tp.descripcion}"/><br/>
+                <p:commandButton value="Agregar" actionListener="#{tpBean.crear()}" update="@all" />
+            </p:panelGrid>
+
+        </h:form>
+        </f:view>
+    </h:body>
+</html>
+

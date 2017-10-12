@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="uesocc.edu.sv.ingenieria.prn335_webproject3_war_1.0-SNAPSHOTPU" transaction-type="JTA">
+    <jta-data-source>jndi_post</jta-data-source>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Categoria</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Cometario</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Meta</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Paso</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Post</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.PostPaso</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.PostSeccion</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Rol</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.RolCategoria</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Seccion</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.TipoPaso</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.TipoPost</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.TipoPostSeccion</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.TipoSeccion</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.Usuario</class>
+    <class>sv.edu.uesocc.ingenieria.prn335_2017.datos.definiciones.UsuarioRolCategoria</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+</persistence>
