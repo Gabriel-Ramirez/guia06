@@ -63,9 +63,11 @@
                 <p:selectBooleanCheckbox id="activocbx" value="#{tpBean.tp.activo}"/><br/>
                 <p:outputLabel><strong>Descripcion</strong></p:outputLabel>
                 <p:inputTextarea title="descripcion" id="Descripcion" value="#{tpBean.tp.descripcion}"/><br/>
-                <p:commandButton value="Agregar" actionListener="#{tpBean.crear()}" update="@all" />
             </p:panelGrid>
-
+            <p:commandButton value="Agregar" actionListener="#{tpBean.crear()}" update="@all" />
+            <p:commandButton value="Limpiar" update="grid_input" process="@this" >
+                <p:resetInput target="grid_input" />
+            </p:commandButton>
         </h:form>
         </f:view>
     </h:body>
