@@ -5,70 +5,81 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Tipo Post</title>
     </h:head>
     <h:body>
         <f:view>
             <h1 align="center">Tipo Post</h1>
-             
+
             <h:form id="for">
-             <div>
-                    <p:selectBooleanCheckbox id="chkUsados" value="#{tpBean.activo}" itemLabel="Motrar Solamente los utilizados" >
+                <div>
+                    <p:selectBooleanCheckbox id="chkUsados" value="#{tpBean.activo}" itemLabel="Motrar Solamente los no utilizados">
                         <p:ajax update="tabla" listener="#{tpBean.chkCambio()}"/>
                     </p:selectBooleanCheckbox>
-             </div>
+                </div>
                 <div>
-                    <p:dataTable value="#{tpBean.lista}" var="item" id ="tabla" rows="10" paginator="true" >
-                    <p:column sortBy="#{item.idTipoPost}">
-                        <f:facet name="header">
-                            <h:outputText value="IdTipoPost"/>
-                        </f:facet>
-                        <h:outputText value="#{item.idTipoPost}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nombre"/>
-                        </f:facet>
-                        <h:outputText value="#{item.nombre}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Activo"/>
-                        </f:facet>
-                        <h:outputText value="#{item.activo}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="Descripcion"/>
-                        </f:facet>
-                        <h:outputText value="#{item.descripcion}"/>
-                    </p:column>
-                </p:dataTable>
+                    <p:dataTable value="#{tpBean.lista}" var="item" id ="tabla" rows="5" paginator="true" selectionMode="single" selection="#{tpBean.tp}" rowKey="#{item.idTipoPost}" sortBy="#{item.idTipoPost}">
+                        <p:ajax event="rowSelect" listener="#{tpBean.onRowSelect}" update=":frmRegistros"/>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="IdTipoPost"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idTipoPost}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Activo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.activo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Descripcion"/>
+                            </f:facet>
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                    </p:dataTable>
                 </div>
             </h:form>
         </f:view>
         <br/>
         <f:view>
-        <h:form>
-            <p:growl id="growl" showDetail="true" sticky="true"/>
-            <h:outputLabel><strong>Crear nuevo registro</strong></h:outputLabel>
-            <br/>
-            <br/>
-            <p:panelGrid id="grid_input" columns="3">
-                <p:outputLabel><strong>Id Post</strong></p:outputLabel>
-                <p:inputText id="idtxt" value="#{tpBean.tp.idTipoPost}" readonly="true"/><br/>
-                <p:outputLabel><strong>Nombre</strong></p:outputLabel>
-                <p:inputText id="nombre" value="#{tpBean.tp.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/> <br/>
-                <p:outputLabel><strong>Activo</strong></p:outputLabel>
-                <p:selectBooleanCheckbox id="activocbx" value="#{tpBean.tp.activo}"/><br/>
-                <p:outputLabel><strong>Descripcion</strong></p:outputLabel>
-                <p:inputTextarea title="descripcion" id="Descripcion" value="#{tpBean.tp.descripcion}"/><br/>
-            </p:panelGrid>
-            <p:commandButton value="Agregar" actionListener="#{tpBean.crear()}" update="@all" />
-            <p:commandButton value="Limpiar" update="grid_input" process="@this" >
-                <p:resetInput target="grid_input" />
-            </p:commandButton>
-        </h:form>
+            <h:form id="frmRegistros">
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <h2>
+                Crear/Editar 
+                </h2>
+                <div align="center">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                </div>
+                <p:panelGrid id="grid_input" columns="2">
+                    <p:outputLabel><strong>Nombre</strong></p:outputLabel>
+                    <p:inputText id="nombre" value="#{tpBean.tp.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                    <p:outputLabel><strong>Activo</strong></p:outputLabel>
+                    <p:selectBooleanCheckbox id="activocbx" value="#{tpBean.tp.activo}"/>
+                    <p:outputLabel><strong>Descripcion</strong></p:outputLabel>
+                    <p:inputTextarea title="descripcion" id="Descripcion" value="#{tpBean.tp.descripcion}"/>
+                </p:panelGrid>
+                <div style="">
+                    <p:panel visible="#{!tpBean.btnEditar}" style="border: none">
+                        <p:commandButton value="Crear" actionListener="#{tpBean.crear()}" update="@all" />
+                        <p:commandButton value="Limpiar" update="grid_input" process="@this" />
+                    </p:panel>
+                    <p:panel visible="#{tpBean.btnEditar}" style="border: none">
+                        <p:commandButton value="Editar" actionListener="#{tpBean.editar()}" update="@all" />
+                        <p:commandButton value="Eliminar" actionListener="#{tpBean.eliminar()}" update="@all" />
+                        <p:commandButton value="Cancelar" immediate="true">
+                            <p:ajax listener="#{tpBean.btnCancelar()}" update="@all"/>
+                        </p:commandButton>
+                    </p:panel>
+                </div>
+            </h:form>
         </f:view>
     </h:body>
 </html>
